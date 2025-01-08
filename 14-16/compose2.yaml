@@ -1,0 +1,24 @@
+services:
+  windows:
+    image: dockurr/windows
+    environment:
+      DISK_SIZE: "20G"
+      RAM_SIZE: "4G"
+      CPU_CORES: "2"
+      DISK_TYPE: "ide"
+      ARGUMENTS: "-drive file=/driver.iso,media=cdrom"
+    devices:
+      - /dev/kvm
+    cap_add:
+      - NET_ADMIN
+    ports:
+      - 8006:8006
+      - 5900:5900/tcp
+      - 5900:5900/udp
+      - 3389:3389/tcp
+      - 3389:3389/udp
+    volumes:
+      - /mnt:/storage
+      - /isos/a.iso:/custom.iso
+      - /isos/driver.iso:/driver.iso
+    stop_grace_period: 2m
